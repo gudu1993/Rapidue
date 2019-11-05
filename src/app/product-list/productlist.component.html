@@ -1,0 +1,68 @@
+<div class="background">
+  <h1>
+    Angular Application!
+  </h1>
+  <hr>
+  <div style="display: flex;">
+    <div style="flex: 1;">
+      <h4>Product List</h4>
+      <div *ngFor="let product of productlist">
+        <img style="height:100px;" src="{{product['icon']}}" />
+        <p><strong>Product Name </strong>{{product?.name}}</p>
+        <p><span style="margin-right: 10px;"><strong>Price </strong>{{product?.price}}</span>
+          <button type="button" name="button" (click)="itmCount('delete',product)"> -
+          </button>
+          &nbsp;
+          <span>{{getQty(product['id'])}}</span>
+          &nbsp;
+           <button type="button" name="button" (click)="itmCount('add',product)">
+            +
+          </button>
+        </p>
+      </div>
+    </div>
+    <div style="flex: 1;">
+      <h4>Cart List</h4>
+      <div *ngFor="let product of cartProducts">
+        <span><strong>Name:</strong></span><span>{{product?.name}}</span>
+        <p>
+          <span><strong>Quantity:</strong></span> <span>{{getQty(product['id'])}}</span>
+          <span style="margin-left: 5px;"><strong>Total</strong></span>: <span>{{product['price'] * getQty(product['id'])}}</span>
+        </p>
+      </div>
+      <form *ngIf="cartProducts?.length > 0" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+        <div>
+          <label for="firstName">Name</label>
+          <input type="text" [(ngModel)]="fName" id="firstName" pattern="^[a-zA-Z ]+$" name="firstName" #firstName="ngModel" required>
+          <div *ngIf="(f.submitted && firstName.invalid) || (firstName.invalid && firstName.touched)">
+            <span *ngIf="firstName.errors.required">Name is required</span>
+            <span *ngIf="firstName.errors.pattern">Enter Valid Name</span>
+          </div>
+        </div>
+        <br/>
+        <div>
+          <label for="email">Email</label>
+          <input type="text" id="email" [(ngModel)]="emailId" pattern="^[a-zA-Z]+([\.\-\_]?[a-zA-Z0-9])+@{1}([a-zA-Z0-9])+([\\.][a-zA-Z]{2,}){1,2}$" #email="ngModel" name="email" required>
+          <div *ngIf="(f.submitted && email.invalid) || (email.invalid && email.touched)">
+            <span *ngIf="email.errors.required">Email is required</span>
+           <span *ngIf=" email.errors.pattern">Enter Valid Email</span>
+          </div>
+        </div>
+        <br/>
+        <div>
+          <label for="mobile">Mobile</label>
+          <input type="text" id="mobile" name="mobile" pattern="^[0-9]{10}$" #mobile = "ngModel" [(ngModel)]="phone" required>
+          <div *ngIf="(f.submitted && mobile.invalid) || (mobile.invalid && mobile.touched)">
+            <span *ngIf="mobile.errors.required">Phone Number is required</span>
+            <span *ngIf="mobile.errors.pattern">Enter Valid Phone Number</span>
+          </div>
+        </div>
+        <br/>
+        <div>
+            <button type="submit" [disabled] = "f.invalid">Checkout</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

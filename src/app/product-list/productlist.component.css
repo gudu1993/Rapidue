@@ -1,0 +1,7 @@
+.background {
+    background-image: url("src\assets\background.png");
+    padding: 5px;
+}
+input {
+    margin-left: 5px;
+}
